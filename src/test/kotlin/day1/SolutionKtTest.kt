@@ -1,7 +1,9 @@
+package day1
+
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 
-class Day01KtTest {
+class SolutionKtTest {
 
     @Test
     fun part1() {

@@ -1,3 +1,7 @@
+package day1
+
+import utils.*
+
 fun main() {
     val input = readInput(1)
     println(part1(input))
