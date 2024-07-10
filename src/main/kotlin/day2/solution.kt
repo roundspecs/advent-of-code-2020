@@ -23,7 +23,7 @@ fun part1(input: String): Int = input.split("\n").count {
 }
 
 fun part2(input: String): Int = input.split("\n").count {
-    val (range, letter, password) = it.extractInfo()
-    val (first, second) = range
+    val (positions, letter, password) = it.extractInfo()
+    val (first, second) = positions
     (password[first - 1] == letter) xor (password[second - 1] == letter)
 }
