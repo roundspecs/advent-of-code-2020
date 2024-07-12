@@ -8,22 +8,25 @@ fun main() {
     println(part2(input))
 }
 
-fun String.extractInfo(): Triple<Pair<Int, Int>, Char, String> {
-    val words = split(" ")
-    val (first, second) = words[0].split("-").map { it.toInt() }
-    val letter = words[1].first()
-    val password = words[2]
-    return Triple(Pair(first, second), letter, password)
+data class PasswordWithPolicy(val range: Pair<Int, Int>, val letter: Char, val password: String) {
+    companion object {
+        fun parse(line: String): PasswordWithPolicy {
+            val words = line.split(" ")
+            val (first, second) = words[0].split("-").map { it.toInt() }
+            val letter = words[1].first()
+            val password = words[2]
+            return PasswordWithPolicy(Pair(first, second), letter, password)
+        }
+    }
 }
 
 fun part1(input: String): Int = input.split("\n").count {
-    val (range, letter, password) = it.extractInfo()
-    val occurrenceCount = password.count { it == letter }
-    range.first <= occurrenceCount && range.second >= occurrenceCount
+    val (range, letter, password) = PasswordWithPolicy.parse(it)
+    password.count { ch -> ch == letter } in range.first..range.second
 }
 
 fun part2(input: String): Int = input.split("\n").count {
-    val (positions, letter, password) = it.extractInfo()
+    val (positions, letter, password) = PasswordWithPolicy.parse(it)
     val (first, second) = positions
     (password[first - 1] == letter) xor (password[second - 1] == letter)
 }
